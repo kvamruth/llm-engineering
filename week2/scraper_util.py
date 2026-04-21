@@ -14,3 +14,9 @@ def fetch_Website_contents(url):
         irr.decompose()
     text = soup.body.get_text(separator="\n",strip=True)
     return title + "\n\n" + text
+
+def fetch_website_links(url):
+    response = requests.get(url,headers=headers)
+    soup = BeautifulSoup(response.content,"html.parser")
+    links = [link.get("href") for link in soup.find_all("a")]
+    return [link for link in links if link]
